@@ -1,0 +1,183 @@
+Build a Chrome Extension (Manifest V3) called "RepoRadar" with the following complete file structure. Generate ALL files at once, production-ready, no placeholders.
+
+## STACK
+- Manifest V3, vanilla JS ES Modules, no build step, no npm
+- Background Service Worker for all API calls
+- chrome.storage.local for all persistence
+- Dark mode only UI
+
+## FILE STRUCTURE TO GENERATE
+extension/
+├── manifest.json
+├── background/service-worker.js
+├── popup/popup.html + popup.js + popup.css
+├── options/options.html + options.js + options.css
+├── favorites/favorites.html + favorites.js + favorites.css
+├── utils/storage.js + groq.js + github.js
+└── assets/icons/ (generate SVG-based PNG icons: 16, 32, 48, 128px using a Python script, run it)
+
+## MANIFEST V3 REQUIREMENTS
+- permissions: storage, identity
+- host_permissions: https://api.github.com/*, https://api.groq.com/*
+- background.service_worker: background/service-worker.js
+- background.type: module
+- CSP: script-src 'self'; object-src 'self'
+- All API calls happen in the service worker ONLY (not popup)
+- Popup communicates via chrome.runtime.sendMessage
+
+## DESIGN SYSTEM (strict)
+Colors: bg #0d1117, surface #161b22, border #30363d, blue #58a6ff, green #3fb950, orange #e3b341, red #f78166, text #e6edf3, muted #8b949e
+Fonts: Rajdhani (body), Unbounded (display/brand), Oswald (labels/UI) — load from Google Fonts
+Popup size: 420px × 600px, dark only, custom scrollbar 4px
+
+## UTILS/STORAGE.JS
+chrome.storage.local wrappers:
+- storageGet(key), storageSet(key, value), storageRemove(key), storageClear()
+- saveGroqKey(key) / getGroqKey() — store as btoa(key)
+- saveGithubToken(token) / getGithubToken() — store as btoa(token)
+- getFavorites() / saveFavorite(fav) / removeFavorite(repoFullName) / isFavorite(name)
+- getFolders() / saveFolder(folder) / deleteFolder(folderId)
+- getCached(queryKey) / setCache(queryKey, data) — TTL 30 minutes
+- getPrefs() / savePrefs(prefs) — default: {language:'fr', resultsPerPage:10, model:'llama-3.3-70b-versatile'}
+- getStorageUsage() — returns bytes used
+- addSearchHistory(entry) / getSearchHistory()
+
+Favorite schema: {id, folderId, repoFullName, repoUrl, repoStars, repoLanguage, repoTopics[], aiSummary, personalNote, tags[], savedAt}
+Folder schema: {id, name, icon (emoji), createdAt}
+
+## UTILS/GROQ.JS
+GROQ_MODELS array:
+- {id:'llama-3.3-70b-versatile', name:'Llama 3.3 70B Versatile', speed:'~280 t/s', status:'recommended'}
+- {id:'llama-3.1-8b-instant', name:'Llama 3.1 8B Instant', speed:'~560 t/s', status:'stable'}
+- {id:'meta-llama/llama-4-maverick-17b-128e-instruct', name:'Llama 4 Maverick 17B', speed:'—', status:'preview'}
+- {id:'meta-llama/llama-4-scout-17b-16e-instruct', name:'Llama 4 Scout 17B', speed:'—', status:'preview'}
+- {id:'qwen-qwq-32b', name:'Qwen 3 32B', speed:'—', status:'preview'}
+- {id:'moonshotai/kimi-k2-instruct', name:'Kimi K2', speed:'—', status:'preview'}
+
+Functions (all async, all return {data, usage}):
+1. groqChat({apiKey, model, messages, temperature, maxTokens}) → fetch POST https://api.groq.com/openai/v1/chat/completions
+2. reformulateQuery({apiKey, model, userQuery, filters}) → returns {queries:string[3], suggestions:string[4], usage}
+   System prompt: expert GitHub Search API, return ONLY JSON {"queries":[],"suggestions":[]}, use qualifiers language:, stars:>, pushed:>, topic:, in:readme
+3. scoreRepositories({apiKey, model, userQuery, repos}) → returns {indices:number[], usage}
+   System prompt: return ONLY JSON array of indices, max 10, ordered by relevance+maintenance+popularity
+4. generateSummaries({apiKey, model, userQuery, repos}) → returns {summaries:{[repoFullName]:{}}, usage}
+   Each summary: {name, what, usecases, stack, strengths} all under 80 chars
+
+## UTILS/GITHUB.JS
+- searchRepositories({query, token, perPage, page}) → fetch https://api.github.com/search/repositories
+  Headers: Accept vnd.github+json, X-GitHub-Api-Version 2022-11-28, Authorization Bearer {token}
+  Handle 403 rate limit and 401 invalid token with clear French error messages
+- parallelSearch({queries:string[], token}) → run 3 queries simultaneously with Promise.allSettled, deduplicate by repo id
+- formatRepo(repo) → clean object with: id, full_name, name, owner, description, url, stars, forks, language, topics[], license, pushed_at, pushedAgo (human: "il y a 3j"), starsFormatted ("4.2k")
+
+## BACKGROUND/SERVICE-WORKER.JS
+chrome.runtime.onMessage listener handling:
+- SEARCH: full 5-step pipeline:
+  1. reformulateQuery (Groq)
+  2. parallelSearch (GitHub ×3)
+  3. scoreRepositories (Groq, top 10 from 60-90 results)
+  4. generateSummaries (Groq, top 10)
+  5. return {repos[], suggestions[], queries[], rateLimit, totalUsage, fromCache}
+  Cache with getCached/setCache, TTL 30min
+- VALIDATE_GROQ_KEY: GET https://api.groq.com/openai/v1/models → {valid, error?}
+- VALIDATE_GITHUB_TOKEN: GET https://api.github.com/user → {valid, login?, error?}
+- GET_STATUS: returns {hasGroqKey, hasGithubToken, ready}
+chrome.runtime.onInstalled: open options page with ?onboarding=true on first install
+
+## POPUP/POPUP.HTML + CSS + JS
+Dimensions: 420×600px dark
+
+HTML structure:
+- Header: logo SVG + "REPORADAR" brand (Unbounded font) + favorites icon btn + settings icon btn
+- Search area: input with search icon + clear btn (×) + filter dropdown + category pills
+- Category pills (data-query attr): "UI Libs", "Icons", "CLI Tools", "CSS", "State", "Anim"
+- Not-configured banner (orange, hidden by default)
+- Results area: empty state | loading state (4 animated steps) | error state | results header + cards list + suggestions
+
+Repo card must show:
+- repo name (link, blue), stars (orange), language badge
+- description (2 lines max)
+- AI summary box (blue tinted bg): "what" field with ✦ prefix + stack/strengths as green tags
+- Footer: pushedAgo + [Favori btn] [Ouvrir btn]
+- Topics as pills below
+
+Loading animation: 4 steps with pulsing blue dot → green check when done
+Steps: "Reformulation de la requête…" / "Recherche sur GitHub…" / "Scoring et classement…" / "Génération des résumés…"
+Each step activates after ~1200ms
+
+Filters panel (dropdown): Langage select, Stars min select, Mise à jour select, Licence select, Réinitialiser btn
+
+JS popup.js:
+- On input: debounce 600ms, trigger search if >= 3 chars
+- sendMessage wrapper for chrome.runtime.sendMessage
+- renderResults: build cards from template, attach fav toggle (saveFavorite/removeFavorite), open btn opens chrome.tabs.create
+- Fav btn toggles .active class, fills SVG heart, updates storage
+
+## OPTIONS/OPTIONS.HTML + CSS + JS
+Full-page settings with sidebar navigation (4 sections):
+
+Section 1 — Clés API:
+- Groq key: password input + show/hide toggle + validation btn + status badge (green "Configurée ✓" / red "Non configurée") + link to console.groq.com
+- GitHub token: same pattern + link to github.com/settings/tokens + validation shows "@login" on success
+- Both call service worker VALIDATE_* messages
+- Save stores via saveGroqKey() / saveGithubToken()
+- Onboarding banner when ?onboarding=true in URL
+
+Section 2 — Modèle IA:
+- List all 6 models as clickable cards with radio dot, name, speed, status badge
+- Status colors: recommended=green, stable=gray, preview=orange
+- Save updates prefs.model via savePrefs()
+
+Section 3 — Préférences:
+- Language select (FR/EN)
+- Results per page select (5/10/20)
+
+Section 4 — Données:
+- Stats grid: Favoris / Dossiers / Historique / Stockage (in KB/MB)
+- Buttons: Export JSON, Export Markdown, Vider le cache, Tout effacer (with confirm())
+- Export builds JSON or Markdown from getFavorites()+getFolders()
+
+## FAVORITES/FAVORITES.HTML + CSS + JS
+Full-page favorites manager:
+
+Header: brand + search input (240px) + "+ Nouveau dossier" btn
+
+Sidebar (200px): folder list
+- "Tous" (📚), "Sans dossier" (📎) — always shown with live counts
+- Dynamic folders below with delete btn (×) on hover
+- Active folder highlighted with blue left border
+
+Main: responsive grid (auto-fill, minmax 300px)
+
+Fav card shows:
+- repo name (link), stars, language badge
+- Personal note (italic, blue left border, hidden if empty)
+- Tags (orange pills)
+- Footer: saved date + [Note] [Ouvrir] [✕ delete] buttons
+
+New Folder modal:
+- Emoji picker (10 emojis: 📁 ⚡ 🔧 🎨 🚀 📦 🔬 💡 🌐 🎯)
+- Name input
+- Cancel / Créer buttons
+
+Edit Note modal:
+- Textarea for personalNote
+- Tags input (comma separated)
+- Cancel / Enregistrer buttons
+
+Search in favorites: filter by repoFullName, personalNote, tags in real-time
+
+## ICON GENERATION
+Create a Python script generate_icons.py and RUN IT to generate:
+assets/icons/icon16.png, icon32.png, icon48.png, icon128.png
+Icon design: dark bg #0d1117, blue circle outline, green plus inside (matching the logo SVG)
+Use Pillow (pip install Pillow first if needed)
+
+## IMPORTANT CONSTRAINTS
+- NO build step, NO webpack, NO npm packages in the extension
+- All JS files use ES Modules (import/export)
+- Google Fonts loaded via <link> in HTML files only (not in service worker)
+- Keys never logged to console
+- All error messages in French
+- Manifest CSP: "script-src 'self'; object-src 'self'" — no inline scripts
+- chrome.storage.local only, never localStorage

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RepoRadar — Favoris</title>
+  <link rel="stylesheet" href="favorites.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="fav-header">
+    <div class="header-brand">
+      <svg class="brand-svg" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="12" stroke="#58a6ff" stroke-width="2"/>
+        <line x1="14" y1="8" x2="14" y2="20" stroke="#3fb950" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="8" y1="14" x2="20" y2="14" stroke="#3fb950" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">REPORADAR</span>
+    </div>
+    <div class="header-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="fav-search" placeholder="Rechercher dans les favoris…" autocomplete="off">
+    </div>
+    <div class="header-spacer"></div>
+    <button class="btn-new-folder" id="new-folder-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Nouveau dossier
+    </button>
+  </header>
+
+  <!-- Layout -->
+  <div class="fav-layout">
+    <!-- Sidebar -->
+    <aside class="fav-sidebar" id="fav-sidebar">
+      <div class="folder-item active" data-folder="all">
+        <span class="folder-icon">📚</span>
+        <span class="folder-name">Tous</span>
+        <span class="folder-count" id="count-all">0</span>
+      </div>
+      <div class="folder-item" data-folder="none">
+        <span class="folder-icon">📎</span>
+        <span class="folder-name">Sans dossier</span>
+        <span class="folder-count" id="count-none">0</span>
+      </div>
+      <div id="folder-list"></div>
+    </aside>
+
+    <!-- Main -->
+    <main class="fav-main" id="fav-main">
+      <div class="empty-favs hidden" id="empty-favs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <p>Aucun favori dans cette section.<br>Recherchez des dépôts et ajoutez-les à vos favoris.</p>
+      </div>
+      <div class="fav-grid" id="fav-grid"></div>
+    </main>
+  </div>
+
+  <!-- New Folder Modal -->
+  <div class="modal-overlay" id="new-folder-modal">
+    <div class="modal">
+      <h2 class="modal-title">Nouveau dossier</h2>
+      <div class="emoji-picker" id="emoji-picker"></div>
+      <label class="modal-label">Nom du dossier</label>
+      <input type="text" class="modal-input" id="folder-name-input" placeholder="Mon dossier…" maxlength="40">
+      <div class="modal-actions">
+        <button class="btn btn-outline" id="cancel-folder-btn">Annuler</button>
+        <button class="btn" id="create-folder-btn">Créer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Note Modal -->
+  <div class="modal-overlay" id="edit-note-modal">
+    <div class="modal">
+      <h2 class="modal-title">Modifier la note</h2>
+      <label class="modal-label">Note personnelle</label>
+      <textarea class="modal-textarea" id="note-textarea" placeholder="Votre note…"></textarea>
+      <label class="modal-label">Tags (séparés par des virgules)</label>
+      <input type="text" class="modal-input" id="tags-input" placeholder="ex: auth, api, tools">
+      <div class="modal-actions">
+        <button class="btn btn-outline" id="cancel-note-btn">Annuler</button>
+        <button class="btn" id="save-note-btn">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="favorites.js"></script>
+</body>
+</html>

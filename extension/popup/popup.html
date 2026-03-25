@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RepoRadar</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-wrap">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="14" cy="14" r="12" stroke="#58a6ff" stroke-width="2"/>
+        <line x1="14" y1="8" x2="14" y2="20" stroke="#3fb950" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="8" y1="14" x2="20" y2="14" stroke="#3fb950" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">REPORADAR</span>
+    </div>
+    <button class="icon-btn" id="fav-page-btn" title="Favoris" aria-label="Favoris">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="settings-btn" title="Paramètres" aria-label="Paramètres">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Not configured banner -->
+  <div class="banner hidden" id="not-configured-banner">
+    <span class="banner-icon">⚠</span>
+    <span>Clé Groq non configurée — cliquez pour configurer</span>
+  </div>
+
+  <!-- Search area -->
+  <div class="search-area">
+    <div class="search-row">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Rechercher des repos GitHub…" autocomplete="off" spellcheck="false">
+        <button id="clear-btn" title="Effacer">×</button>
+      </div>
+      <button class="filter-toggle" id="filter-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/>
+        </svg>
+        Filtres
+      </button>
+    </div>
+
+    <!-- Filter panel -->
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-grid">
+        <select class="filter-select" id="filter-language">
+          <option value="">Langage</option>
+          <option value="javascript">JavaScript</option>
+          <option value="typescript">TypeScript</option>
+          <option value="python">Python</option>
+          <option value="rust">Rust</option>
+          <option value="go">Go</option>
+          <option value="java">Java</option>
+          <option value="cpp">C++</option>
+          <option value="css">CSS</option>
+        </select>
+        <select class="filter-select" id="filter-stars">
+          <option value="">Étoiles min</option>
+          <option value="100">100+</option>
+          <option value="1000">1k+</option>
+          <option value="5000">5k+</option>
+          <option value="10000">10k+</option>
+          <option value="50000">50k+</option>
+        </select>
+        <select class="filter-select" id="filter-updated">
+          <option value="">Mise à jour</option>
+          <option value="2024-01-01">Cette année</option>
+          <option value="2023-01-01">2 dernières années</option>
+        </select>
+        <select class="filter-select" id="filter-license">
+          <option value="">Licence</option>
+          <option value="mit">MIT</option>
+          <option value="apache-2.0">Apache 2.0</option>
+          <option value="gpl-3.0">GPL 3.0</option>
+        </select>
+        <button class="filter-reset" id="filter-reset">↺ Réinitialiser les filtres</button>
+      </div>
+    </div>
+
+    <!-- Category pills -->
+    <div class="categories">
+      <button class="pill" data-query="UI component library React">UI Libs</button>
+      <button class="pill" data-query="icon library SVG">Icons</button>
+      <button class="pill" data-query="CLI tools developer productivity">CLI Tools</button>
+      <button class="pill" data-query="CSS framework utility">CSS</button>
+      <button class="pill" data-query="state management library">State</button>
+      <button class="pill" data-query="animation library JavaScript">Anim</button>
+    </div>
+  </div>
+
+  <!-- Results area -->
+  <div class="results-area" id="results-area">
+
+    <!-- Empty state -->
+    <div class="state-empty" id="state-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <p>Tapez au moins 3 caractères pour lancer une recherche GitHub assistée par IA.</p>
+    </div>
+
+    <!-- Loading state -->
+    <div class="state-loading hidden" id="state-loading">
+      <div class="load-step" id="step-0">
+        <div class="step-dot"></div>
+        <span class="step-label">Reformulation de la requête…</span>
+      </div>
+      <div class="load-step" id="step-1">
+        <div class="step-dot"></div>
+        <span class="step-label">Recherche sur GitHub…</span>
+      </div>
+      <div class="load-step" id="step-2">
+        <div class="step-dot"></div>
+        <span class="step-label">Scoring et classement…</span>
+      </div>
+      <div class="load-step" id="step-3">
+        <div class="step-dot"></div>
+        <span class="step-label">Génération des résumés…</span>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div class="state-error hidden" id="state-error">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <p class="err-title">Erreur</p>
+      <p class="err-msg" id="error-msg"></p>
+    </div>
+
+    <!-- Results -->
+    <div class="hidden" id="state-results">
+      <div class="results-header">
+        <div class="results-count">
+          <span id="results-count-num">0</span> résultats
+        </div>
+        <div class="rate-limit" id="rate-limit-info"></div>
+      </div>
+      <div class="suggestions" id="suggestions-area"></div>
+      <div class="card-list" id="card-list"></div>
+    </div>
+
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
