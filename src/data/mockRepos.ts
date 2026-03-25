@@ -1,0 +1,83 @@
+import { Repo } from '@/types'
+
+export const MOCK_REPOS: Repo[] = [
+  {
+    id: 1,
+    fullName: 'tanstack/query',
+    owner: 'tanstack',
+    name: 'query',
+    description: 'Powerful async state management for React, Vue, Solid and Svelte',
+    stars: 12400,
+    starsFormatted: '12.4k',
+    language: 'TypeScript',
+    topics: ['async', 'cache', 'react', 'typescript'],
+    pushedAgo: 'il y a 2j',
+    url: 'https://github.com/tanstack/query',
+    summary: {
+      what: 'Gestion du cache serveur avec synchronisation automatique',
+      stack: 'React/Vue/Solid',
+      strengths: 'Zero-config cache',
+    },
+  },
+  {
+    id: 2,
+    fullName: 'pmndrs/zustand',
+    owner: 'pmndrs',
+    name: 'zustand',
+    description: 'Bear necessities for state management in React',
+    stars: 47200,
+    starsFormatted: '47.2k',
+    language: 'TypeScript',
+    topics: ['state', 'react', 'store'],
+    pushedAgo: 'il y a 5j',
+    url: 'https://github.com/pmndrs/zustand',
+    summary: {
+      what: 'Store minimaliste React, 1KB, sans boilerplate',
+      stack: 'React',
+      strengths: 'Léger & simple',
+    },
+  },
+  {
+    id: 3,
+    fullName: 'sindresorhus/ky',
+    owner: 'sindresorhus',
+    name: 'ky',
+    description: 'Tiny & elegant HTTP client based on the Fetch API',
+    stars: 9800,
+    starsFormatted: '9.8k',
+    language: 'TypeScript',
+    topics: ['http', 'fetch', 'requests'],
+    pushedAgo: 'il y a 12j',
+    url: 'https://github.com/sindresorhus/ky',
+    summary: {
+      what: 'Alternative fetch avec retry, timeout et hooks intégrés',
+      stack: 'Browser/Node',
+      strengths: 'API simple',
+    },
+  },
+  {
+    id: 4,
+    fullName: 'lukeed/clsx',
+    owner: 'lukeed',
+    name: 'clsx',
+    description: 'A tiny utility for constructing className strings conditionally',
+    stars: 8100,
+    starsFormatted: '8.1k',
+    language: 'JavaScript',
+    topics: ['classnames', 'css', 'utility'],
+    pushedAgo: 'il y a 1 mois',
+    url: 'https://github.com/lukeed/clsx',
+    summary: {
+      what: 'Concatène les classes CSS conditionnellement, 228 octets',
+      stack: 'Vanilla JS',
+      strengths: 'Ultra léger',
+    },
+  },
+]
+
+export const MOCK_SUGGESTIONS = [
+  'react query alternatives',
+  'state management zustand jotai',
+  'lightweight fetch library',
+  'utility functions typescript',
+]
