@@ -30,48 +30,54 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04, duration: 0.18 }}
       style={{
-        padding: '11px 12px',
+        padding: '11px 12px 10px',
         borderBottom: '1px solid var(--border-subtle)',
       }}
     >
-      {/* Top row: name + stars + lang */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, marginBottom: 5 }}>
+      {/* Top row: owner/name + stars + lang badge */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 8,
+        marginBottom: 5,
+      }}>
         <a
           href={repo.url}
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            fontFamily: 'var(--font-oswald)',
+            fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
             fontSize: 13,
-            fontWeight: 500,
+            fontWeight: 700,
             color: 'var(--blue)',
             textDecoration: 'none',
             flex: 1,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
+            letterSpacing: '0.01em',
           }}
-          onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
-          onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+          onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')}
+          onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}
         >
-          {repo.fullName}
+          {repo.owner}/<strong>{repo.name}</strong>
         </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexShrink: 0 }}>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
           <span style={{
-            fontFamily: 'var(--font-oswald)',
+            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
             fontSize: 11,
             color: 'var(--orange)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
+            letterSpacing: '0.02em',
           }}>
-            ★ {repo.starsFormatted}
+            ⭐ {repo.starsFormatted}
           </span>
           <span style={{
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
             gap: 4,
-            fontFamily: 'var(--font-oswald)',
+            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
             fontSize: 10,
             color: 'var(--muted)',
             border: '1px solid var(--border-subtle)',
@@ -91,10 +97,11 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
         </div>
       </div>
 
-      {/* Description */}
+      {/* Description — 2 lines max */}
       <p style={{
-        fontFamily: 'var(--font-rajdhani)',
+        fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
         fontSize: 12,
+        fontWeight: 500,
         color: 'var(--muted)',
         lineHeight: 1.5,
         marginBottom: 7,
@@ -106,34 +113,45 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
         {repo.description}
       </p>
 
-      {/* AI summary box */}
+      {/* AI Summary box */}
       <div style={{
-        background: 'rgba(88, 166, 255, 0.05)',
+        background: 'rgba(88, 166, 255, 0.06)',
         border: '1px solid rgba(88, 166, 255, 0.12)',
         borderRadius: 5,
         padding: '7px 9px',
         marginBottom: 7,
       }}>
         <div style={{
-          fontFamily: 'var(--font-rajdhani)',
-          fontSize: 12,
-          color: 'var(--text)',
-          marginBottom: 5,
           display: 'flex',
           gap: 5,
+          alignItems: 'flex-start',
+          marginBottom: 5,
         }}>
-          <span style={{ color: 'var(--blue)', flexShrink: 0 }}>✦</span>
-          <span>{repo.summary.what}</span>
+          <span style={{
+            color: 'var(--blue)',
+            flexShrink: 0,
+            fontSize: 11,
+            lineHeight: '16px',
+          }}>✦</span>
+          <span style={{
+            fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
+            fontSize: 12,
+            fontWeight: 500,
+            color: 'var(--text)',
+            lineHeight: 1.4,
+          }}>
+            {repo.summary.what}
+          </span>
         </div>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
           {repo.summary.stack && (
             <span style={{
               background: 'rgba(63, 185, 80, 0.08)',
-              border: '1px solid rgba(63, 185, 80, 0.2)',
+              border: '1px solid rgba(63, 185, 80, 0.22)',
               color: 'var(--green)',
               borderRadius: 10,
               padding: '1px 7px',
-              fontFamily: 'var(--font-oswald)',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 10,
             }}>
               {repo.summary.stack}
@@ -142,11 +160,11 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
           {repo.summary.strengths && (
             <span style={{
               background: 'rgba(63, 185, 80, 0.08)',
-              border: '1px solid rgba(63, 185, 80, 0.2)',
+              border: '1px solid rgba(63, 185, 80, 0.22)',
               color: 'var(--green)',
               borderRadius: 10,
               padding: '1px 7px',
-              fontFamily: 'var(--font-oswald)',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 10,
             }}>
               {repo.summary.strengths}
@@ -164,9 +182,10 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
               border: '1px solid var(--border-subtle)',
               color: 'var(--subtle)',
               borderRadius: 10,
-              padding: '1px 7px',
-              fontFamily: 'var(--font-oswald)',
-              fontSize: 10,
+              padding: '1px 6px',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+              fontSize: 9,
+              letterSpacing: '0.02em',
             }}>
               {t}
             </span>
@@ -175,11 +194,16 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
       )}
 
       {/* Footer */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
         <span style={{
-          fontFamily: 'var(--font-oswald)',
+          fontFamily: 'var(--font-oswald), Oswald, sans-serif',
           fontSize: 10,
           color: 'var(--subtle)',
+          letterSpacing: '0.02em',
         }}>
           {repo.pushedAgo}
         </span>
@@ -187,18 +211,19 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
           <button
             onClick={() => onToggleFav(repo.id)}
             style={{
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
               gap: 4,
-              background: isFavorited ? 'rgba(247, 129, 102, 0.08)' : 'var(--surface-2)',
-              border: `1px solid ${isFavorited ? 'rgba(247,129,102,0.4)' : 'var(--border)'}`,
+              background: isFavorited ? 'rgba(247,129,102,0.1)' : 'var(--surface-2)',
+              border: `1px solid ${isFavorited ? 'rgba(247,129,102,0.45)' : 'var(--border)'}`,
               borderRadius: 5,
               color: isFavorited ? 'var(--red)' : 'var(--muted)',
               cursor: 'pointer',
-              fontFamily: 'var(--font-oswald)',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 10,
               padding: '3px 8px',
               letterSpacing: '0.03em',
+              transition: 'all 150ms ease',
             }}
           >
             <HeartIcon size={11} filled={isFavorited} />
@@ -209,18 +234,19 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
               gap: 4,
               background: 'var(--surface-2)',
               border: '1px solid var(--border)',
               borderRadius: 5,
               color: 'var(--muted)',
-              fontFamily: 'var(--font-oswald)',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 10,
               padding: '3px 8px',
               textDecoration: 'none',
               letterSpacing: '0.03em',
+              transition: 'all 150ms ease',
             }}
             onMouseEnter={e => {
               e.currentTarget.style.color = 'var(--text)'

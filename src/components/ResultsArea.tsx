@@ -6,7 +6,7 @@ import RepoCard from './RepoCard'
 import SuggestionsRow from './SuggestionsRow'
 import RadarIcon from './icons/RadarIcon'
 
-const LOADING_STEPS: LoadingStep[] = [
+const INITIAL_STEPS: LoadingStep[] = [
   { id: 0, label: 'Reformulation de la requête…', state: 'pending' },
   { id: 1, label: 'Recherche sur GitHub…', state: 'pending' },
   { id: 2, label: 'Scoring et classement…', state: 'pending' },
@@ -27,19 +27,21 @@ export default function ResultsArea({
   state, repos, favoritedRepos, onToggleFav,
   suggestions, onSuggestionSelect, errorMsg,
 }: ResultsAreaProps) {
-  const [steps, setSteps] = useState<LoadingStep[]>(LOADING_STEPS.map(s => ({ ...s })))
+  const [steps, setSteps] = useState<LoadingStep[]>(INITIAL_STEPS.map(s => ({ ...s })))
 
   useEffect(() => {
     if (state !== 'loading') {
-      setSteps(LOADING_STEPS.map(s => ({ ...s })))
+      setSteps(INITIAL_STEPS.map(s => ({ ...s })))
       return
     }
+
+    // Step 0 active immediately
+    setSteps(INITIAL_STEPS.map((s, i) => ({ ...s, state: i === 0 ? 'active' : 'pending' })))
     let current = 0
-    setSteps(prev => prev.map((s, i) => ({ ...s, state: i === 0 ? 'active' : 'pending' })))
 
     const interval = setInterval(() => {
       current++
-      if (current >= LOADING_STEPS.length) {
+      if (current >= INITIAL_STEPS.length) {
         clearInterval(interval)
         return
       }
@@ -52,6 +54,7 @@ export default function ResultsArea({
     return () => clearInterval(interval)
   }, [state])
 
+  // ── IDLE ───────────────────────────────────────────────────
   if (state === 'idle') {
     return (
       <div style={{
@@ -66,7 +69,7 @@ export default function ResultsArea({
       }}>
         <RadarIcon size={48} />
         <p style={{
-          fontFamily: 'var(--font-rajdhani)',
+          fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
           fontSize: 15,
           fontWeight: 600,
           color: 'var(--muted)',
@@ -74,18 +77,19 @@ export default function ResultsArea({
           Cherche des repositories
         </p>
         <p style={{
-          fontFamily: 'var(--font-rajdhani)',
+          fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
           fontSize: 12,
           color: 'var(--subtle)',
           lineHeight: 1.5,
           maxWidth: 220,
         }}>
-          Tape une requête ou sélectionne une catégorie pour lancer la recherche IA
+          Tape une requête et appuie sur Entrée, ou sélectionne une catégorie
         </p>
       </div>
     )
   }
 
+  // ── LOADING ─────────────────────────────────────────────────
   if (state === 'loading') {
     return (
       <div style={{
@@ -93,25 +97,46 @@ export default function ResultsArea({
         display: 'flex',
         flexDirection: 'column',
         gap: 10,
-        padding: '20px 14px',
+        padding: '22px 16px',
       }}>
         {steps.map(step => (
-          <div key={step.id} style={{ display: 'flex', alignItems: 'center', gap: 10, opacity: step.state === 'pending' ? 0.3 : 1 }}>
+          <div
+            key={step.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              opacity: step.state === 'pending' ? 0.3 : 1,
+              transition: 'opacity 300ms ease',
+            }}
+          >
+            {/* Dot */}
             <span style={{
               width: 8,
               height: 8,
               borderRadius: '50%',
               flexShrink: 0,
-              background: step.state === 'done' ? 'var(--green)' : step.state === 'active' ? 'var(--blue)' : 'var(--subtle)',
-              animation: step.state === 'active' ? 'pulse-dot 1s ease infinite' : 'none',
-              boxShadow: step.state === 'active' ? '0 0 6px 2px rgba(88,166,255,0.4)' : 'none',
               display: 'inline-block',
+              background: step.state === 'done'
+                ? 'var(--green)'
+                : step.state === 'active'
+                  ? 'var(--blue)'
+                  : 'var(--subtle)',
+              animation: step.state === 'active' ? 'pulse-dot 1s ease infinite' : 'none',
+              boxShadow: step.state === 'active' ? '0 0 0 3px rgba(88,166,255,0.2)' : 'none',
+              transition: 'background 300ms ease, box-shadow 300ms ease',
             }} />
+            {/* Label */}
             <span style={{
-              fontFamily: 'var(--font-oswald)',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 12,
-              color: step.state === 'done' ? 'var(--green)' : step.state === 'active' ? 'var(--text)' : 'var(--subtle)',
               letterSpacing: '0.02em',
+              color: step.state === 'done'
+                ? 'var(--green)'
+                : step.state === 'active'
+                  ? 'var(--text)'
+                  : 'var(--subtle)',
+              transition: 'color 300ms ease',
             }}>
               {step.state === 'done' ? '✓ ' : ''}{step.label}
             </span>
@@ -121,6 +146,7 @@ export default function ResultsArea({
     )
   }
 
+  // ── ERROR ────────────────────────────────────────────────────
   if (state === 'error') {
     return (
       <div style={{
@@ -138,51 +164,71 @@ export default function ResultsArea({
           <line x1="12" y1="8" x2="12" y2="12"/>
           <line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
-        <p style={{ fontFamily: 'var(--font-oswald)', fontSize: 14, color: 'var(--red)', letterSpacing: '0.04em' }}>
+        <p style={{
+          fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+          fontSize: 13,
+          color: 'var(--red)',
+          letterSpacing: '0.04em',
+        }}>
           ERREUR
         </p>
-        <p style={{ fontFamily: 'var(--font-rajdhani)', fontSize: 12, color: 'var(--muted)' }}>
+        <p style={{
+          fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
+          fontSize: 12,
+          color: 'var(--muted)',
+        }}>
           {errorMsg || 'Une erreur est survenue.'}
         </p>
       </div>
     )
   }
 
-  // Results
+  // ── RESULTS ──────────────────────────────────────────────────
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
       {/* Results header */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '6px 12px',
+        padding: '5px 12px',
         borderBottom: '1px solid var(--border-subtle)',
         flexShrink: 0,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{ fontFamily: 'var(--font-oswald)', fontSize: 11, color: 'var(--muted)', letterSpacing: '0.03em' }}>
+          <span style={{
+            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+            fontSize: 11,
+            color: 'var(--muted)',
+            letterSpacing: '0.02em',
+          }}>
             {repos.length} résultats
           </span>
           <span style={{
-            fontFamily: 'var(--font-oswald)',
+            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
             fontSize: 9,
             color: 'var(--orange)',
             border: '1px solid rgba(227,179,65,0.35)',
             borderRadius: 10,
             padding: '1px 6px',
-            letterSpacing: '0.04em',
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
           }}>
-            CACHE
+            cache
           </span>
         </div>
-        <span style={{ fontFamily: 'var(--font-oswald)', fontSize: 10, color: 'var(--subtle)' }}>
+        <span style={{
+          fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+          fontSize: 10,
+          color: 'var(--subtle)',
+          letterSpacing: '0.02em',
+        }}>
           ~1847 tokens
         </span>
       </div>
 
-      {/* Scrollable card list */}
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+      {/* Scrollable cards */}
+      <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
         {repos.map((repo, i) => (
           <RepoCard
             key={repo.id}

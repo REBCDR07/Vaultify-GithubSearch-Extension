@@ -10,43 +10,43 @@ export default function SuggestionsRow({ suggestions, onSelect }: SuggestionsRow
 
   return (
     <div style={{
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: 5,
-      padding: '8px 12px',
+      padding: '8px 12px 10px',
       borderTop: '1px solid var(--border-subtle)',
     }}>
-      <span style={{
-        fontFamily: 'var(--font-oswald)',
+      <p style={{
+        fontFamily: 'var(--font-oswald), Oswald, sans-serif',
         fontSize: 10,
         color: 'var(--subtle)',
-        letterSpacing: '0.04em',
-        alignSelf: 'center',
-        flexShrink: 0,
+        letterSpacing: '0.05em',
+        textTransform: 'uppercase',
+        marginBottom: 6,
       }}>
-        VOIR AUSSI
-      </span>
-      {suggestions.map(s => (
-        <button
-          key={s}
-          onClick={() => onSelect(s)}
-          style={{
-            background: 'rgba(88, 166, 255, 0.06)',
-            border: '1px solid rgba(88, 166, 255, 0.18)',
-            borderRadius: 20,
-            color: 'var(--blue)',
-            cursor: 'pointer',
-            fontFamily: 'var(--font-oswald)',
-            fontSize: 10,
-            padding: '2px 9px',
-            letterSpacing: '0.03em',
-          }}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(88, 166, 255, 0.12)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'rgba(88, 166, 255, 0.06)'}
-        >
-          {s}
-        </button>
-      ))}
+        Recherches connexes
+      </p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+        {suggestions.map(s => (
+          <button
+            key={s}
+            onClick={() => onSelect(s)}
+            style={{
+              background: 'rgba(88, 166, 255, 0.06)',
+              border: '1px solid rgba(88, 166, 255, 0.18)',
+              borderRadius: 20,
+              color: 'var(--blue)',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+              fontSize: 10,
+              padding: '2px 9px',
+              letterSpacing: '0.03em',
+              transition: 'background 150ms ease',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(88, 166, 255, 0.13)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(88, 166, 255, 0.06)')}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

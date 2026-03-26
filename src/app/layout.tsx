@@ -38,14 +38,16 @@ export default function RootLayout({
       lang="fr"
       className={`${unbounded.variable} ${rajdhani.variable} ${oswald.variable}`}
     >
-      <body style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#080b10',
-        fontFamily: 'var(--font-rajdhani)',
-      }}>
+      <body
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#1a1f26',
+          fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
+        }}
+      >
         {children}
       </body>
     </html>

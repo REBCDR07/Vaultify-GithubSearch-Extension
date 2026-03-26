@@ -20,7 +20,7 @@ const selectStyle: React.CSSProperties = {
   border: '1px solid var(--border)',
   borderRadius: 5,
   color: 'var(--text)',
-  fontFamily: 'var(--font-oswald)',
+  fontFamily: 'var(--font-oswald), Oswald, sans-serif',
   fontSize: 11,
   padding: '5px 8px',
   outline: 'none',
@@ -51,19 +51,15 @@ export default function SearchBar({
 
   return (
     <div style={{
-      padding: '10px 12px 0',
+      padding: '9px 12px 0',
       background: 'var(--surface)',
       flexShrink: 0,
+      borderBottom: '1px solid var(--border-subtle)',
     }}>
       {/* Input row */}
       <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
         {/* Search input */}
-        <div style={{
-          flex: 1,
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-        }}>
+        <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center' }}>
           <span style={{
             position: 'absolute',
             left: 9,
@@ -71,6 +67,7 @@ export default function SearchBar({
             display: 'flex',
             alignItems: 'center',
             pointerEvents: 'none',
+            zIndex: 1,
           }}>
             <SearchIcon size={13} />
           </span>
@@ -90,11 +87,12 @@ export default function SearchBar({
               border: `1px solid ${focused ? 'var(--blue)' : 'var(--border)'}`,
               borderRadius: 6,
               color: 'var(--text)',
-              fontFamily: 'var(--font-rajdhani)',
+              fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
               fontSize: 13,
               fontWeight: 500,
               padding: '7px 30px 7px 28px',
               outline: 'none',
+              transition: 'border-color 150ms ease',
             }}
           />
           {query && (
@@ -107,7 +105,7 @@ export default function SearchBar({
                 border: 'none',
                 color: 'var(--muted)',
                 cursor: 'pointer',
-                fontSize: 16,
+                fontSize: 15,
                 lineHeight: 1,
                 padding: 0,
                 display: 'flex',
@@ -120,7 +118,7 @@ export default function SearchBar({
         <button
           onClick={onToggleFilters}
           style={{
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
             gap: 4,
             padding: '6px 9px',
@@ -130,12 +128,13 @@ export default function SearchBar({
             color: showFilters ? 'var(--blue)' : 'var(--muted)',
             cursor: 'pointer',
             flexShrink: 0,
-            fontFamily: 'var(--font-oswald)',
+            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
             fontSize: 10,
             letterSpacing: '0.04em',
+            transition: 'all 150ms ease',
           }}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="4" y1="6" x2="20" y2="6"/>
             <line x1="8" y1="12" x2="16" y2="12"/>
             <line x1="10" y1="18" x2="14" y2="18"/>
@@ -214,11 +213,12 @@ export default function SearchBar({
                   border: '1px solid var(--border)',
                   borderRadius: 5,
                   color: 'var(--muted)',
-                  fontFamily: 'var(--font-oswald)',
+                  fontFamily: 'var(--font-oswald), Oswald, sans-serif',
                   fontSize: 10,
                   padding: '5px',
                   cursor: 'pointer',
                   letterSpacing: '0.04em',
+                  transition: 'all 150ms ease',
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.borderColor = 'var(--red)'
@@ -236,7 +236,7 @@ export default function SearchBar({
         )}
       </AnimatePresence>
 
-      <div style={{ height: 10 }} />
+      <div style={{ height: 8 }} />
     </div>
   )
 }

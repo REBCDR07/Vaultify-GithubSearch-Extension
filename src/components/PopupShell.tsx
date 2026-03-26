@@ -17,8 +17,8 @@ const INITIAL_FILTER: FilterState = {
 }
 
 export default function PopupShell() {
-  const [searchState, setSearchState] = useState<SearchState>('idle')
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchState, setSearchState] = useState<SearchState>('results')
+  const [searchQuery, setSearchQuery] = useState('state management react')
   const [favoritedRepos, setFavoritedRepos] = useState<Set<number>>(new Set())
   const [showBanner, setShowBanner] = useState(true)
   const [showFilters, setShowFilters] = useState(false)
@@ -28,24 +28,20 @@ export default function PopupShell() {
   const handleSearch = useCallback((query: string) => {
     if (!query.trim() || query.trim().length < 3) return
     setSearchState('loading')
-    setTimeout(() => {
-      setSearchState('results')
-    }, 5200)
+    setTimeout(() => setSearchState('results'), 5200)
   }, [])
 
+  // Only update query on change — no auto-search on keystroke
   const handleQueryChange = useCallback((val: string) => {
     setSearchQuery(val)
     if (val.length === 0) {
       setSearchState('idle')
       setActiveCategory('')
     }
-    if (val.length >= 3) {
-      handleSearch(val)
-    }
-  }, [handleSearch])
+  }, [])
 
   const handleCategorySelect = useCallback((query: string, label: string) => {
-    setActiveCategory(label)
+    setActiveCategory(prev => prev === label ? '' : label)
     setSearchQuery(query)
     handleSearch(query)
   }, [handleSearch])
@@ -80,7 +76,8 @@ export default function PopupShell() {
       borderRadius: 8,
       display: 'flex',
       flexDirection: 'column',
-      fontFamily: 'var(--font-rajdhani)',
+      fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
+      position: 'relative',
     }}>
       <Header
         onToggleBanner={() => setShowBanner(v => !v)}

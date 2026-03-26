@@ -19,7 +19,7 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
     <div style={{
       display: 'flex',
       gap: 5,
-      padding: '7px 12px 8px',
+      padding: '6px 12px 7px',
       overflowX: 'auto',
       scrollbarWidth: 'none',
       flexShrink: 0,
@@ -32,11 +32,11 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
             key={cat.label}
             onClick={() => onSelect(cat.query, cat.label)}
             style={{
-              fontFamily: 'var(--font-oswald)',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 10,
-              letterSpacing: '0.06em',
+              letterSpacing: '0.05em',
               textTransform: 'uppercase',
-              padding: '3px 9px',
+              padding: '3px 10px',
               borderRadius: 20,
               border: `1px solid ${isActive ? 'var(--blue)' : 'var(--border-subtle)'}`,
               background: isActive ? 'rgba(88, 166, 255, 0.08)' : 'var(--surface-2)',
@@ -44,12 +44,13 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
               cursor: 'pointer',
               whiteSpace: 'nowrap',
               flexShrink: 0,
+              transition: 'all 150ms ease',
             }}
             onMouseEnter={e => {
               if (!isActive) {
                 e.currentTarget.style.borderColor = 'var(--blue)'
                 e.currentTarget.style.color = 'var(--blue)'
-                e.currentTarget.style.background = 'rgba(88, 166, 255, 0.08)'
+                e.currentTarget.style.background = 'rgba(88, 166, 255, 0.06)'
               }
             }}
             onMouseLeave={e => {
