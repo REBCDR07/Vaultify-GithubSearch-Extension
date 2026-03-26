@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from 'react'
 import { SearchState, FilterState } from '@/types'
-import { MOCK_REPOS, MOCK_SUGGESTIONS } from '@/data/mockRepos'
 import Header from './Header'
 import NotConfiguredBanner from './NotConfiguredBanner'
 import SearchBar from './SearchBar'
@@ -105,10 +104,8 @@ export default function PopupShell() {
 
       <ResultsArea
         state={searchState}
-        repos={MOCK_REPOS}
         favoritedRepos={favoritedRepos}
         onToggleFav={handleToggleFav}
-        suggestions={MOCK_SUGGESTIONS}
         onSuggestionSelect={handleSuggestionSelect}
       />
     </div>

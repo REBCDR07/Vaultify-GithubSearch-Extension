@@ -1,9 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Repo } from '@/types'
-import HeartIcon from './icons/HeartIcon'
-import ExternalIcon from './icons/ExternalIcon'
 
 interface RepoCardProps {
   repo: Repo
@@ -21,90 +18,72 @@ const LANG_COLORS: Record<string, string> = {
   CSS: '#563d7c',
 }
 
-export default function RepoCard({ repo, isFavorited, onToggleFav, index }: RepoCardProps) {
-  const langColor = LANG_COLORS[repo.language] || 'var(--muted)'
+export default function RepoCard({ repo, isFavorited, onToggleFav }: RepoCardProps) {
+  const langColor = LANG_COLORS[repo.language] || '#8b949e'
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.04, duration: 0.18 }}
-      style={{
-        padding: '11px 12px 10px',
-        borderBottom: '1px solid var(--border-subtle)',
-      }}
-    >
-      {/* Top row: owner/name + stars + lang badge */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 8,
-        marginBottom: 5,
-      }}>
+    <div style={{
+      background: '#161b22',
+      border: '1px solid #21262d',
+      borderRadius: 6,
+      padding: '10px 12px',
+      marginBottom: 6,
+    }}>
+
+      {/* Row 1: name + stars + lang */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6, alignItems: 'center', gap: 6 }}>
         <a
           href={repo.url}
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
-            fontSize: 13,
+            color: '#58a6ff',
             fontWeight: 700,
-            color: 'var(--blue)',
+            fontSize: 13,
             textDecoration: 'none',
-            flex: 1,
+            fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            letterSpacing: '0.01em',
+            flex: 1,
           }}
           onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')}
           onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}
         >
           {repo.owner}/<strong>{repo.name}</strong>
         </a>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
-          <span style={{
-            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-            fontSize: 11,
-            color: 'var(--orange)',
-            letterSpacing: '0.02em',
-          }}>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
+          <span style={{ color: '#e3b341', fontSize: 11, fontFamily: 'var(--font-oswald), Oswald, sans-serif' }}>
             ⭐ {repo.starsFormatted}
           </span>
           <span style={{
+            background: '#1c2128',
+            border: '1px solid #21262d',
+            borderRadius: 3,
+            padding: '1px 5px',
+            fontSize: 10,
+            color: '#8b949e',
+            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
             display: 'inline-flex',
             alignItems: 'center',
             gap: 4,
-            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-            fontSize: 10,
-            color: 'var(--muted)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 10,
-            padding: '1px 7px',
           }}>
             <span style={{
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              background: langColor,
-              flexShrink: 0,
-              display: 'inline-block',
+              width: 6, height: 6, borderRadius: '50%',
+              background: langColor, display: 'inline-block', flexShrink: 0,
             }} />
             {repo.language}
           </span>
         </div>
       </div>
 
-      {/* Description — 2 lines max */}
+      {/* Description */}
       <p style={{
-        fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
         fontSize: 12,
-        fontWeight: 500,
-        color: 'var(--muted)',
-        lineHeight: 1.5,
+        color: '#8b949e',
         marginBottom: 7,
+        lineHeight: 1.5,
+        fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
         display: '-webkit-box',
         WebkitLineClamp: 2,
         WebkitBoxOrient: 'vertical',
@@ -115,57 +94,39 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
 
       {/* AI Summary box */}
       <div style={{
-        background: 'rgba(88, 166, 255, 0.06)',
-        border: '1px solid rgba(88, 166, 255, 0.12)',
-        borderRadius: 5,
+        background: 'rgba(88,166,255,0.05)',
+        border: '1px solid rgba(88,166,255,0.12)',
+        borderRadius: 4,
         padding: '7px 9px',
         marginBottom: 7,
       }}>
-        <div style={{
-          display: 'flex',
-          gap: 5,
-          alignItems: 'flex-start',
-          marginBottom: 5,
+        <p style={{
+          fontSize: 11,
+          color: '#8b949e',
+          marginBottom: 4,
+          lineHeight: 1.4,
+          fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
         }}>
-          <span style={{
-            color: 'var(--blue)',
-            flexShrink: 0,
-            fontSize: 11,
-            lineHeight: '16px',
-          }}>✦</span>
-          <span style={{
-            fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
-            fontSize: 12,
-            fontWeight: 500,
-            color: 'var(--text)',
-            lineHeight: 1.4,
-          }}>
-            {repo.summary.what}
-          </span>
-        </div>
+          <span style={{ color: '#58a6ff' }}>✦ </span>
+          {repo.summary.what}
+        </p>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
           {repo.summary.stack && (
             <span style={{
-              background: 'rgba(63, 185, 80, 0.08)',
-              border: '1px solid rgba(63, 185, 80, 0.22)',
-              color: 'var(--green)',
-              borderRadius: 10,
-              padding: '1px 7px',
+              fontSize: 9, color: '#3fb950',
+              border: '1px solid rgba(63,185,80,0.25)',
+              borderRadius: 3, padding: '1px 5px',
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 10,
             }}>
               {repo.summary.stack}
             </span>
           )}
           {repo.summary.strengths && (
             <span style={{
-              background: 'rgba(63, 185, 80, 0.08)',
-              border: '1px solid rgba(63, 185, 80, 0.22)',
-              color: 'var(--green)',
-              borderRadius: 10,
-              padding: '1px 7px',
+              fontSize: 9, color: '#3fb950',
+              border: '1px solid rgba(63,185,80,0.25)',
+              borderRadius: 3, padding: '1px 5px',
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 10,
             }}>
               {repo.summary.strengths}
             </span>
@@ -173,95 +134,66 @@ export default function RepoCard({ repo, isFavorited, onToggleFav, index }: Repo
         </div>
       </div>
 
-      {/* Topics */}
-      {repo.topics.length > 0 && (
-        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 7 }}>
-          {repo.topics.map(t => (
-            <span key={t} style={{
-              background: 'var(--surface-2)',
-              border: '1px solid var(--border-subtle)',
-              color: 'var(--subtle)',
-              borderRadius: 10,
-              padding: '1px 6px',
-              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 9,
-              letterSpacing: '0.02em',
-            }}>
-              {t}
-            </span>
-          ))}
-        </div>
-      )}
-
       {/* Footer */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{
+          fontSize: 10, color: '#484f58',
           fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-          fontSize: 10,
-          color: 'var(--subtle)',
-          letterSpacing: '0.02em',
         }}>
           {repo.pushedAgo}
         </span>
-        <div style={{ display: 'flex', gap: 5 }}>
+        <div style={{ display: 'flex', gap: 4 }}>
           <button
             onClick={() => onToggleFav(repo.id)}
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 4,
-              background: isFavorited ? 'rgba(247,129,102,0.1)' : 'var(--surface-2)',
-              border: `1px solid ${isFavorited ? 'rgba(247,129,102,0.45)' : 'var(--border)'}`,
-              borderRadius: 5,
-              color: isFavorited ? 'var(--red)' : 'var(--muted)',
-              cursor: 'pointer',
+              background: isFavorited ? 'rgba(247,129,102,0.1)' : '#1c2128',
+              border: isFavorited ? '1px solid rgba(247,129,102,0.35)' : '1px solid #21262d',
+              color: isFavorited ? '#f78166' : '#8b949e',
+              borderRadius: 3, padding: '3px 8px',
+              fontSize: 10, cursor: 'pointer',
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 10,
-              padding: '3px 8px',
               letterSpacing: '0.03em',
               transition: 'all 150ms ease',
             }}
           >
-            <HeartIcon size={11} filled={isFavorited} />
-            {isFavorited ? 'Sauvé' : 'Favori'}
+            {isFavorited ? '♥' : '♡'} {isFavorited ? 'Sauvé' : 'Favori'}
           </button>
           <a
             href={repo.url}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 4,
-              background: 'var(--surface-2)',
-              border: '1px solid var(--border)',
-              borderRadius: 5,
-              color: 'var(--muted)',
+              background: '#1c2128', border: '1px solid #21262d',
+              color: '#8b949e', borderRadius: 3, padding: '3px 8px',
+              fontSize: 10, cursor: 'pointer',
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 10,
-              padding: '3px 8px',
-              textDecoration: 'none',
-              letterSpacing: '0.03em',
+              letterSpacing: '0.03em', textDecoration: 'none',
+              display: 'inline-flex', alignItems: 'center', gap: 3,
               transition: 'all 150ms ease',
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = 'var(--text)'
-              e.currentTarget.style.borderColor = 'var(--muted)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = 'var(--muted)'
-              e.currentTarget.style.borderColor = 'var(--border)'
-            }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#e6edf3'; e.currentTarget.style.borderColor = '#484f58' }}
+            onMouseLeave={e => { e.currentTarget.style.color = '#8b949e'; e.currentTarget.style.borderColor = '#21262d' }}
           >
-            <ExternalIcon size={10} />
-            Ouvrir
+            ↗ Ouvrir
           </a>
         </div>
       </div>
-    </motion.div>
+
+      {/* Topics */}
+      {repo.topics.length > 0 && (
+        <div style={{ display: 'flex', gap: 3, marginTop: 6, flexWrap: 'wrap' }}>
+          {repo.topics.slice(0, 4).map(t => (
+            <span key={t} style={{
+              fontSize: 9, color: '#484f58',
+              border: '1px solid #21262d', borderRadius: 10,
+              padding: '1px 6px',
+              fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+            }}>
+              {t}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }

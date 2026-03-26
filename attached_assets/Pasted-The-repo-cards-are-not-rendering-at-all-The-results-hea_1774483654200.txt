@@ -1,0 +1,108 @@
+The repo cards are not rendering at all. The results header shows 
+"4 résultats" but the card list is completely empty. Fix this now.
+
+DIAGNOSIS: ResultsArea is in 'results' state but RepoCard components 
+are not appearing. The MOCK_REPOS array is probably not being passed 
+correctly or the map() is failing silently.
+
+FIXES NEEDED:
+
+1. In ResultsArea.tsx (or wherever results are rendered), make sure 
+   the repos prop is MOCK_REPOS imported directly from data/mockRepos.ts
+   Do NOT pass it through state if state is empty on init.
+   Hardcode it temporarily to confirm:
+   import { MOCK_REPOS } from '@/data/mockRepos'
+   Then map MOCK_REPOS directly in the JSX.
+
+2. Each RepoCard must render this exact structure with real inline styles
+   (not just CSS classes that might not be loading):
+
+<div style={{
+  background: '#161b22',
+  border: '1px solid #21262d',
+  borderRadius: '6px',
+  padding: '10px 12px',
+  marginBottom: '6px'
+}}>
+  {/* Row 1: name + stars + lang */}
+  <div style={{display:'flex', justifyContent:'space-between', marginBottom:'6px'}}>
+    <a style={{color:'#58a6ff', fontWeight:700, fontSize:'13px', textDecoration:'none'}}>
+      {repo.fullName}
+    </a>
+    <div style={{display:'flex', gap:'6px', alignItems:'center'}}>
+      <span style={{color:'#e3b341', fontSize:'11px'}}>⭐ {repo.starsFormatted}</span>
+      <span style={{
+        background:'#1c2128', border:'1px solid #21262d',
+        borderRadius:'3px', padding:'1px 5px',
+        fontSize:'10px', color:'#484f58'
+      }}>{repo.language}</span>
+    </div>
+  </div>
+
+  {/* Description */}
+  <p style={{
+    fontSize:'12px', color:'#8b949e', marginBottom:'7px',
+    display:'-webkit-box', WebkitLineClamp:2,
+    WebkitBoxOrient:'vertical', overflow:'hidden'
+  }}>{repo.description}</p>
+
+  {/* AI Summary box */}
+  <div style={{
+    background:'rgba(88,166,255,0.05)',
+    border:'1px solid rgba(88,166,255,0.12)',
+    borderRadius:'4px', padding:'7px 9px', marginBottom:'7px'
+  }}>
+    <p style={{fontSize:'11px', color:'#8b949e', marginBottom:'4px'}}>
+      <span style={{color:'#58a6ff'}}>✦ </span>{repo.summary.what}
+    </p>
+    <div style={{display:'flex', gap:'4px'}}>
+      <span style={{
+        fontSize:'9px', color:'#3fb950',
+        border:'1px solid rgba(63,185,80,0.25)',
+        borderRadius:'3px', padding:'1px 5px'
+      }}>{repo.summary.stack}</span>
+      <span style={{
+        fontSize:'9px', color:'#3fb950',
+        border:'1px solid rgba(63,185,80,0.25)',
+        borderRadius:'3px', padding:'1px 5px'
+      }}>{repo.summary.strengths}</span>
+    </div>
+  </div>
+
+  {/* Footer */}
+  <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+    <span style={{fontSize:'10px', color:'#484f58', fontFamily:'Oswald'}}>{repo.pushedAgo}</span>
+    <div style={{display:'flex', gap:'4px'}}>
+      <button onClick={() => onToggleFav(repo.id)} style={{
+        background: isFavorited ? 'rgba(247,129,102,0.1)' : '#1c2128',
+        border: isFavorited ? '1px solid rgba(247,129,102,0.3)' : '1px solid #21262d',
+        color: isFavorited ? '#f78166' : '#8b949e',
+        borderRadius:'3px', padding:'3px 8px',
+        fontSize:'10px', cursor:'pointer', fontFamily:'Oswald'
+      }}>♥ Favori</button>
+      <button style={{
+        background:'#1c2128', border:'1px solid #21262d',
+        color:'#8b949e', borderRadius:'3px', padding:'3px 8px',
+        fontSize:'10px', cursor:'pointer', fontFamily:'Oswald'
+      }}>↗ Ouvrir</button>
+    </div>
+  </div>
+
+  {/* Topics */}
+  <div style={{display:'flex', gap:'3px', marginTop:'6px', flexWrap:'wrap'}}>
+    {repo.topics.slice(0,4).map(t => (
+      <span key={t} style={{
+        fontSize:'9px', color:'#484f58',
+        border:'1px solid #21262d', borderRadius:'10px',
+        padding:'1px 6px'
+      }}>{t}</span>
+    ))}
+  </div>
+</div>
+
+3. The results area (card list) needs overflow-y: auto and 
+   a fixed max-height so it scrolls inside the popup.
+   Set: maxHeight: '380px', overflowY: 'auto'
+
+4. Add console.log(MOCK_REPOS) in the component to confirm 
+   data is available, then remove it after confirming.
