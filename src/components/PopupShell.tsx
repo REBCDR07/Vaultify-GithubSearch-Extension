@@ -66,13 +66,11 @@ export default function PopupShell() {
 
   return (
     <div style={{
-      width: 420,
-      height: 600,
+      width: '100%',
+      minHeight: 600,
       overflow: 'hidden',
       background: 'var(--bg)',
       color: 'var(--text)',
-      border: '1px solid var(--border)',
-      borderRadius: 8,
       display: 'flex',
       flexDirection: 'column',
       fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',

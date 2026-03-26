@@ -257,7 +257,7 @@ export default function LandingPage() {
 
         {/* ── POPUP PREVIEW (full-width, centered, large) ─────────── */}
         <section id="apercu" style={{
-          padding: '0 24px 80px',
+          padding: '0 32px 80px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -266,6 +266,7 @@ export default function LandingPage() {
           {/* Section label */}
           <div style={{
             display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32,
+            width: '100%', maxWidth: 960,
           }}>
             <div style={{ flex: 1, height: 1, background: 'linear-gradient(to right, transparent, #21262d)' }} />
             <span style={{
@@ -279,7 +280,10 @@ export default function LandingPage() {
           {/* Glow effect */}
           <div style={{
             position: 'relative',
-            display: 'inline-block',
+            width: '100%',
+            maxWidth: 960,
+            display: 'flex',
+            flexDirection: 'column',
           }}>
             <div style={{
               position: 'absolute',
@@ -293,8 +297,7 @@ export default function LandingPage() {
             <div style={{
               position: 'relative',
               zIndex: 1,
-              width: 420,
-              maxWidth: '100%',
+              width: '100%',
             }}
               className="popup-wrapper"
             >
@@ -378,10 +381,8 @@ export default function LandingPage() {
 
       {/* ── RESPONSIVE ──────────────────────────────────────────────── */}
       <style>{`
-        @media (max-width: 500px) {
-          .popup-wrapper {
-            width: 100% !important;
-          }
+        .popup-wrapper {
+          width: 100%;
         }
       `}</style>
     </div>
