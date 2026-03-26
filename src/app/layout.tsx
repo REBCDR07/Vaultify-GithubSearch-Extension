@@ -24,8 +24,8 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "RepoRadar — Mockup",
-  description: "Chrome Extension popup UI mockup — RepoRadar",
+  title: "RepoRadar — GitHub AI Search Extension",
+  description: "Découvrez des repositories GitHub méconnus grâce à l'IA Groq",
 };
 
 export default function RootLayout({
@@ -38,16 +38,13 @@ export default function RootLayout({
       lang="fr"
       className={`${unbounded.variable} ${rajdhani.variable} ${oswald.variable}`}
     >
-      <body
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#1a1f26',
-          fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
-        }}
-      >
+      <body style={{
+        minHeight: '100vh',
+        background: '#0d1117',
+        color: '#e6edf3',
+        fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
+        margin: 0,
+      }}>
         {children}
       </body>
     </html>

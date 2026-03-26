@@ -2,11 +2,29 @@
 
 ## Projects
 
-### 1. Vaultify (Next.js Web App)
+### 1. RepoRadar Next.js Mockup / Landing Page
 - Framework: Next.js 16 with React 19
 - Stack: TypeScript, Tailwind CSS v4, React Compiler
 - Dev server: port 5000, `npm run dev`
-- Entry: `src/app/`
+- Entry: `src/app/page.tsx` → `LandingPage` component
+
+#### Landing Page Structure
+- `src/components/LandingPage.tsx` — Full demo page (sticky header, 2-col hero, footer)
+- `src/components/PopupShell.tsx` — Main state manager for the popup UI
+- `src/components/RepoCard.tsx` — Repo card with AI summary, fav toggle
+- `src/components/ResultsArea.tsx` — All 4 states (idle/loading/results/error) + MOCK_REPOS hardcoded
+- `src/components/SearchBar.tsx` — Input + filter panel (Enters triggers search)
+- `src/components/CategoryPills.tsx` — 6 category pills, Oswald 10px
+- `src/components/SuggestionsRow.tsx` — "Recherches connexes" section
+- `src/data/mockRepos.ts` — 4 mock repos + 4 suggestions
+- `src/app/globals.css` — Design tokens (CSS vars), scrollbar, pulse-dot animation
+
+#### Design Tokens
+- bg: #0d1117, surface: #161b22, surface-2: #1c2128
+- border: #30363d, border-subtle: #21262d
+- blue: #58a6ff, green: #3fb950, orange: #e3b341, red: #f78166
+- text: #e6edf3, muted: #8b949e, subtle: #484f58
+- Fonts: Unbounded (brand/headings), Rajdhani (body), Oswald (labels/badges)
 
 ### 2. RepoRadar (Chrome Extension)
 Located in `extension/` — Manifest V3, vanilla JS ES Modules, no build step.

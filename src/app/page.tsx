@@ -1,5 +1,5 @@
-import PopupShell from "@/components/PopupShell";
+import LandingPage from "@/components/LandingPage";
 
 export default function Home() {
-  return <PopupShell />;
+  return <LandingPage />;
 }
