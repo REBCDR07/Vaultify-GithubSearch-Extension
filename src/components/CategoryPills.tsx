@@ -18,14 +18,13 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
   return (
     <div style={{
       display: 'flex',
-      gap: 5,
-      padding: '6px 12px 7px',
+      gap: 6,
+      padding: '7px 14px 8px',
       overflowX: 'auto',
       scrollbarWidth: 'none',
       flexShrink: 0,
       borderBottom: '1px solid #21262d',
     }}>
-      <style>{`.cat-pills::-webkit-scrollbar{display:none}`}</style>
       {CATEGORIES.map(cat => {
         const isActive = activeCategory === cat.label
         return (
@@ -34,10 +33,10 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
             onClick={() => onSelect(cat.query, cat.label)}
             style={{
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.05em',
               textTransform: 'uppercase',
-              padding: '3px 9px',
+              padding: '4px 12px',
               borderRadius: 20,
               border: `1px solid ${isActive ? '#58a6ff' : '#21262d'}`,
               background: isActive ? 'rgba(88,166,255,0.08)' : '#1c2128',

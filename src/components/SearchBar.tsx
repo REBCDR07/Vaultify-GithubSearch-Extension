@@ -21,8 +21,8 @@ const selectStyle: React.CSSProperties = {
   borderRadius: 5,
   color: 'var(--text)',
   fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-  fontSize: 11,
-  padding: '5px 8px',
+  fontSize: 13,
+  padding: '6px 9px',
   outline: 'none',
   cursor: 'pointer',
   width: '100%',
@@ -51,25 +51,25 @@ export default function SearchBar({
 
   return (
     <div style={{
-      padding: '9px 12px 0',
+      padding: '10px 14px 0',
       background: 'var(--surface)',
       flexShrink: 0,
       borderBottom: '1px solid var(--border-subtle)',
     }}>
       {/* Input row */}
-      <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
         {/* Search input */}
         <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center' }}>
           <span style={{
             position: 'absolute',
-            left: 9,
+            left: 10,
             color: 'var(--muted)',
             display: 'flex',
             alignItems: 'center',
             pointerEvents: 'none',
             zIndex: 1,
           }}>
-            <SearchIcon size={13} />
+            <SearchIcon size={15} />
           </span>
           <input
             ref={inputRef}
@@ -88,9 +88,9 @@ export default function SearchBar({
               borderRadius: 6,
               color: 'var(--text)',
               fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
-              fontSize: 13,
+              fontSize: 15,
               fontWeight: 500,
-              padding: '7px 30px 7px 28px',
+              padding: '8px 32px 8px 32px',
               outline: 'none',
               transition: 'border-color 150ms ease',
             }}
@@ -100,12 +100,12 @@ export default function SearchBar({
               onClick={() => { onQueryChange(''); inputRef.current?.focus() }}
               style={{
                 position: 'absolute',
-                right: 8,
+                right: 9,
                 background: 'none',
                 border: 'none',
                 color: 'var(--muted)',
                 cursor: 'pointer',
-                fontSize: 15,
+                fontSize: 17,
                 lineHeight: 1,
                 padding: 0,
                 display: 'flex',
@@ -120,8 +120,8 @@ export default function SearchBar({
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 4,
-            padding: '6px 9px',
+            gap: 5,
+            padding: '7px 11px',
             background: showFilters ? 'rgba(88, 166, 255, 0.08)' : 'var(--bg)',
             border: `1px solid ${showFilters ? 'var(--blue)' : 'var(--border)'}`,
             borderRadius: 6,
@@ -129,12 +129,12 @@ export default function SearchBar({
             cursor: 'pointer',
             flexShrink: 0,
             fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-            fontSize: 10,
+            fontSize: 12,
             letterSpacing: '0.04em',
             transition: 'all 150ms ease',
           }}
         >
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="4" y1="6" x2="20" y2="6"/>
             <line x1="8" y1="12" x2="16" y2="12"/>
             <line x1="10" y1="18" x2="14" y2="18"/>
@@ -145,10 +145,10 @@ export default function SearchBar({
               background: 'var(--blue)',
               color: '#0d1117',
               borderRadius: 10,
-              padding: '0 5px',
-              fontSize: 9,
+              padding: '0 6px',
+              fontSize: 11,
               fontWeight: 700,
-              lineHeight: '14px',
+              lineHeight: '16px',
             }}>
               {activeFilterCount}
             </span>
@@ -167,14 +167,14 @@ export default function SearchBar({
             style={{ overflow: 'hidden' }}
           >
             <div style={{
-              marginTop: 8,
-              padding: '10px',
+              marginTop: 9,
+              padding: '11px',
               background: 'var(--bg)',
               border: '1px solid var(--border)',
               borderRadius: 8,
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: 6,
+              gap: 7,
             }}>
               <select style={selectStyle} value={filterState.language} onChange={e => onFilterChange('language', e.target.value)}>
                 <option value="">Langage</option>
@@ -214,8 +214,8 @@ export default function SearchBar({
                   borderRadius: 5,
                   color: 'var(--muted)',
                   fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-                  fontSize: 10,
-                  padding: '5px',
+                  fontSize: 12,
+                  padding: '6px',
                   cursor: 'pointer',
                   letterSpacing: '0.04em',
                   transition: 'all 150ms ease',
@@ -236,7 +236,7 @@ export default function SearchBar({
         )}
       </AnimatePresence>
 
-      <div style={{ height: 8 }} />
+      <div style={{ height: 9 }} />
     </div>
   )
 }

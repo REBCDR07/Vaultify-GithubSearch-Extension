@@ -40,7 +40,7 @@ export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps
         <RadarIcon size={20} />
         <span style={{
           fontFamily: 'var(--font-unbounded), Unbounded, cursive',
-          fontSize: 11,
+          fontSize: 14,
           fontWeight: 700,
           letterSpacing: '0.08em',
         }}>
