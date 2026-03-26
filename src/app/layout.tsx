@@ -24,7 +24,7 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "RepoRadar — GitHub AI Search Extension",
+  title: "Vaultify — GitHub AI Search Extension",
   description: "Découvrez des repositories GitHub méconnus grâce à l'IA Groq",
 };
 
