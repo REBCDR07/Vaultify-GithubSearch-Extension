@@ -1,8 +1,6 @@
 'use client'
 
-import RadarIcon from './icons/RadarIcon'
-import HeartIcon from './icons/HeartIcon'
-import GearIcon from './icons/GearIcon'
+import { Heart, Settings, Radar } from 'lucide-react'
 
 interface HeaderProps {
   onToggleBanner: () => void
@@ -37,7 +35,7 @@ export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps
     }}>
       {/* Left: logo + brand */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <RadarIcon size={20} />
+        <Radar size={20} color="#58a6ff" />
         <span style={{
           fontFamily: 'var(--font-unbounded), Unbounded, cursive',
           fontSize: 16,
@@ -66,7 +64,7 @@ export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps
             e.currentTarget.style.color = '#8b949e'
           }}
         >
-          <HeartIcon size={15} />
+          <Heart size={15} />
         </button>
         <button
           style={iconBtnStyle}
@@ -83,7 +81,7 @@ export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps
             e.currentTarget.style.color = '#8b949e'
           }}
         >
-          <GearIcon size={15} />
+          <Settings size={15} />
         </button>
       </div>
     </header>

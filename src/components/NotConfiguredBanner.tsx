@@ -1,5 +1,7 @@
 'use client'
 
+import { AlertTriangle, X } from 'lucide-react'
+
 export default function NotConfiguredBanner({ onDismiss }: { onDismiss: () => void }) {
   return (
     <div style={{
@@ -11,7 +13,7 @@ export default function NotConfiguredBanner({ onDismiss }: { onDismiss: () => vo
       borderBottom: '1px solid rgba(227, 179, 65, 0.25)',
       cursor: 'pointer',
     }} onClick={onDismiss}>
-      <span style={{ fontSize: 13 }}>⚠</span>
+      <AlertTriangle size={14} color="var(--orange)" strokeWidth={2} />
       <span style={{
         fontFamily: 'var(--font-oswald)',
         fontSize: 11,
@@ -21,7 +23,7 @@ export default function NotConfiguredBanner({ onDismiss }: { onDismiss: () => vo
       }}>
         Clé Groq non configurée — cliquez pour configurer
       </span>
-      <span style={{ color: 'var(--orange)', fontSize: 14, opacity: 0.6 }}>×</span>
+      <X size={14} color="var(--orange)" strokeWidth={2} style={{ opacity: 0.6 }} />
     </div>
   )
 }

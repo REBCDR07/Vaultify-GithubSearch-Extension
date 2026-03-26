@@ -1,5 +1,6 @@
 'use client'
 
+import { Star, Heart, ExternalLink, Clock } from 'lucide-react'
 import { Repo } from '@/types'
 
 interface RepoCardProps {
@@ -53,8 +54,13 @@ export default function RepoCard({ repo, isFavorited, onToggleFav }: RepoCardPro
           {repo.owner}/<strong>{repo.name}</strong>
         </a>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-          <span style={{ color: '#e3b341', fontSize: 15, fontFamily: 'var(--font-oswald), Oswald, sans-serif' }}>
-            ⭐ {repo.starsFormatted}
+          <span style={{
+            color: '#e3b341', fontSize: 15,
+            fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+            display: 'inline-flex', alignItems: 'center', gap: 4,
+          }}>
+            <Star size={13} fill="#e3b341" strokeWidth={0} />
+            {repo.starsFormatted}
           </span>
           <span style={{
             background: '#1c2128',
@@ -139,7 +145,9 @@ export default function RepoCard({ repo, isFavorited, onToggleFav }: RepoCardPro
         <span style={{
           fontSize: 14, color: '#484f58',
           fontFamily: 'var(--font-oswald), Oswald, sans-serif',
+          display: 'inline-flex', alignItems: 'center', gap: 5,
         }}>
+          <Clock size={12} strokeWidth={1.8} />
           {repo.pushedAgo}
         </span>
         <div style={{ display: 'flex', gap: 6 }}>
@@ -154,9 +162,16 @@ export default function RepoCard({ repo, isFavorited, onToggleFav }: RepoCardPro
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               letterSpacing: '0.03em',
               transition: 'all 150ms ease',
+              display: 'inline-flex', alignItems: 'center', gap: 5,
             }}
           >
-            {isFavorited ? '♥' : '♡'} {isFavorited ? 'Sauvé' : 'Favori'}
+            <Heart
+              size={13}
+              fill={isFavorited ? '#f78166' : 'none'}
+              stroke={isFavorited ? '#f78166' : 'currentColor'}
+              strokeWidth={2}
+            />
+            {isFavorited ? 'Sauvé' : 'Favori'}
           </button>
           <a
             href={repo.url}
@@ -174,7 +189,7 @@ export default function RepoCard({ repo, isFavorited, onToggleFav }: RepoCardPro
             onMouseEnter={e => { e.currentTarget.style.color = '#e6edf3'; e.currentTarget.style.borderColor = '#484f58' }}
             onMouseLeave={e => { e.currentTarget.style.color = '#8b949e'; e.currentTarget.style.borderColor = '#21262d' }}
           >
-            ↗ Ouvrir
+            <ExternalLink size={13} /> Ouvrir
           </a>
         </div>
       </div>

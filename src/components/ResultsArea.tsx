@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Radar, AlertCircle, Check } from 'lucide-react'
 import { SearchState, LoadingStep } from '@/types'
 import { MOCK_REPOS, MOCK_SUGGESTIONS } from '@/data/mockRepos'
 import RepoCard from './RepoCard'
 import SuggestionsRow from './SuggestionsRow'
-import RadarIcon from './icons/RadarIcon'
 
 const INITIAL_STEPS: LoadingStep[] = [
   { id: 0, label: 'Reformulation de la requête…', state: 'pending' },
@@ -58,7 +58,7 @@ export default function ResultsArea({
         padding: 24,
         textAlign: 'center',
       }}>
-        <RadarIcon size={48} />
+        <Radar size={48} color="#30363d" strokeWidth={1.2} />
         <p style={{
           fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
           fontSize: 15,
@@ -98,17 +98,21 @@ export default function ResultsArea({
             opacity: step.state === 'pending' ? 0.3 : 1,
             transition: 'opacity 300ms ease',
           }}>
-            <span style={{
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              flexShrink: 0,
-              display: 'inline-block',
-              background: step.state === 'done' ? '#3fb950' : step.state === 'active' ? '#58a6ff' : '#484f58',
-              animation: step.state === 'active' ? 'pulse-dot 1s ease infinite' : 'none',
-              boxShadow: step.state === 'active' ? '0 0 0 3px rgba(88,166,255,0.2)' : 'none',
-              transition: 'background 300ms ease',
-            }} />
+            {step.state === 'done' ? (
+              <Check size={14} color="#3fb950" strokeWidth={2.5} style={{ flexShrink: 0 }} />
+            ) : (
+              <span style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                flexShrink: 0,
+                display: 'inline-block',
+                background: step.state === 'active' ? '#58a6ff' : '#484f58',
+                animation: step.state === 'active' ? 'pulse-dot 1s ease infinite' : 'none',
+                boxShadow: step.state === 'active' ? '0 0 0 3px rgba(88,166,255,0.2)' : 'none',
+                transition: 'background 300ms ease',
+              }} />
+            )}
             <span style={{
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 16,
@@ -116,7 +120,7 @@ export default function ResultsArea({
               color: step.state === 'done' ? '#3fb950' : step.state === 'active' ? '#e6edf3' : '#484f58',
               transition: 'color 300ms ease',
             }}>
-              {step.state === 'done' ? '✓ ' : ''}{step.label}
+              {step.label}
             </span>
           </div>
         ))}
@@ -132,11 +136,7 @@ export default function ResultsArea({
         alignItems: 'center', justifyContent: 'center',
         gap: 10, padding: 24, textAlign: 'center',
       }}>
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f78166" strokeWidth="1.5">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="12"/>
-          <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
+        <AlertCircle size={40} color="#f78166" strokeWidth={1.5} />
         <p style={{ fontFamily: 'var(--font-oswald), Oswald, sans-serif', fontSize: 13, color: '#f78166', letterSpacing: '0.04em' }}>ERREUR</p>
         <p style={{ fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif', fontSize: 12, color: '#8b949e' }}>
           {errorMsg || 'Une erreur est survenue.'}

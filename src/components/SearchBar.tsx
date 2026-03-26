@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import SearchIcon from './icons/SearchIcon'
+import { Search, SlidersHorizontal, X, RotateCcw } from 'lucide-react'
 import { FilterState } from '@/types'
 
 interface SearchBarProps {
@@ -69,7 +69,7 @@ export default function SearchBar({
             pointerEvents: 'none',
             zIndex: 1,
           }}>
-            <SearchIcon size={15} />
+            <Search size={15} />
           </span>
           <input
             ref={inputRef}
@@ -105,12 +105,13 @@ export default function SearchBar({
                 border: 'none',
                 color: 'var(--muted)',
                 cursor: 'pointer',
-                fontSize: 17,
-                lineHeight: 1,
-                padding: 0,
                 display: 'flex',
+                alignItems: 'center',
+                padding: 0,
               }}
-            >×</button>
+            >
+              <X size={15} />
+            </button>
           )}
         </div>
 
@@ -134,11 +135,7 @@ export default function SearchBar({
             transition: 'all 150ms ease',
           }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="4" y1="6" x2="20" y2="6"/>
-            <line x1="8" y1="12" x2="16" y2="12"/>
-            <line x1="10" y1="18" x2="14" y2="18"/>
-          </svg>
+          <SlidersHorizontal size={14} />
           FILTRES
           {activeFilterCount > 0 && (
             <span style={{
@@ -219,6 +216,10 @@ export default function SearchBar({
                   cursor: 'pointer',
                   letterSpacing: '0.04em',
                   transition: 'all 150ms ease',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.borderColor = 'var(--red)'
@@ -229,7 +230,7 @@ export default function SearchBar({
                   e.currentTarget.style.color = 'var(--muted)'
                 }}
               >
-                ↺ RÉINITIALISER
+                <RotateCcw size={12} /> RÉINITIALISER
               </button>
             </div>
           </motion.div>
