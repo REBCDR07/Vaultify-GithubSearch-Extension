@@ -111,7 +111,7 @@ export default function ResultsArea({
             }} />
             <span style={{
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 14,
+              fontSize: 16,
               letterSpacing: '0.02em',
               color: step.state === 'done' ? '#3fb950' : step.state === 'active' ? '#e6edf3' : '#484f58',
               transition: 'color 300ms ease',
@@ -161,15 +161,15 @@ export default function ResultsArea({
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <span style={{
             fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-            fontSize: 13, color: '#8b949e', letterSpacing: '0.02em',
+            fontSize: 15, color: '#8b949e', letterSpacing: '0.02em',
           }}>
             {MOCK_REPOS.length} résultats
           </span>
           <span style={{
             fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-            fontSize: 11, color: '#e3b341',
+            fontSize: 13, color: '#e3b341',
             border: '1px solid rgba(227,179,65,0.35)',
-            borderRadius: 10, padding: '2px 8px',
+            borderRadius: 10, padding: '2px 9px',
             letterSpacing: '0.05em', textTransform: 'uppercase',
           }}>
             cache
@@ -177,7 +177,7 @@ export default function ResultsArea({
         </div>
         <span style={{
           fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-          fontSize: 12, color: '#484f58', letterSpacing: '0.02em',
+          fontSize: 14, color: '#484f58', letterSpacing: '0.02em',
         }}>
           ~1847 tokens
         </span>

@@ -21,8 +21,8 @@ const selectStyle: React.CSSProperties = {
   borderRadius: 5,
   color: 'var(--text)',
   fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-  fontSize: 13,
-  padding: '6px 9px',
+  fontSize: 15,
+  padding: '7px 10px',
   outline: 'none',
   cursor: 'pointer',
   width: '100%',
@@ -88,9 +88,9 @@ export default function SearchBar({
               borderRadius: 6,
               color: 'var(--text)',
               fontFamily: 'var(--font-rajdhani), Rajdhani, sans-serif',
-              fontSize: 15,
+              fontSize: 17,
               fontWeight: 500,
-              padding: '8px 32px 8px 32px',
+              padding: '9px 34px 9px 34px',
               outline: 'none',
               transition: 'border-color 150ms ease',
             }}
@@ -129,12 +129,12 @@ export default function SearchBar({
             cursor: 'pointer',
             flexShrink: 0,
             fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-            fontSize: 12,
+            fontSize: 14,
             letterSpacing: '0.04em',
             transition: 'all 150ms ease',
           }}
         >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="4" y1="6" x2="20" y2="6"/>
             <line x1="8" y1="12" x2="16" y2="12"/>
             <line x1="10" y1="18" x2="14" y2="18"/>

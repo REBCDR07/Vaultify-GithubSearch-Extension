@@ -10,21 +10,21 @@ export default function SuggestionsRow({ suggestions, onSelect }: SuggestionsRow
 
   return (
     <div style={{
-      padding: '10px 0 14px',
+      padding: '12px 0 16px',
       borderTop: '1px solid #21262d',
       marginTop: 4,
     }}>
       <p style={{
         fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-        fontSize: 12,
+        fontSize: 14,
         color: '#484f58',
         letterSpacing: '0.05em',
         textTransform: 'uppercase',
-        marginBottom: 8,
+        marginBottom: 10,
       }}>
         Recherches connexes
       </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
         {suggestions.map(s => (
           <button
             key={s}
@@ -36,8 +36,8 @@ export default function SuggestionsRow({ suggestions, onSelect }: SuggestionsRow
               color: '#58a6ff',
               cursor: 'pointer',
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 12,
-              padding: '3px 11px',
+              fontSize: 14,
+              padding: '4px 13px',
               letterSpacing: '0.03em',
               transition: 'background 150ms ease',
             }}

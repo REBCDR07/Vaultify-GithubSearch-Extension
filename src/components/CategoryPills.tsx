@@ -18,8 +18,8 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
   return (
     <div style={{
       display: 'flex',
-      gap: 6,
-      padding: '7px 14px 8px',
+      gap: 7,
+      padding: '8px 16px 9px',
       overflowX: 'auto',
       scrollbarWidth: 'none',
       flexShrink: 0,
@@ -33,10 +33,10 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
             onClick={() => onSelect(cat.query, cat.label)}
             style={{
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
-              fontSize: 12,
+              fontSize: 14,
               letterSpacing: '0.05em',
               textTransform: 'uppercase',
-              padding: '4px 12px',
+              padding: '5px 14px',
               borderRadius: 20,
               border: `1px solid ${isActive ? '#58a6ff' : '#21262d'}`,
               background: isActive ? 'rgba(88,166,255,0.08)' : '#1c2128',
