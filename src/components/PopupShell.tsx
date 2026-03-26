@@ -19,7 +19,7 @@ export default function PopupShell() {
   const [searchState, setSearchState] = useState<SearchState>('results')
   const [searchQuery, setSearchQuery] = useState('state management react')
   const [favoritedRepos, setFavoritedRepos] = useState<Set<number>>(new Set())
-  const [showBanner, setShowBanner] = useState(true)
+  const [showBanner, setShowBanner] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [activeCategory, setActiveCategory] = useState('')
   const [filterState, setFilterState] = useState<FilterState>(INITIAL_FILTER)

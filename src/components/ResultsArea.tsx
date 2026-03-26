@@ -184,7 +184,7 @@ export default function ResultsArea({
       </div>
 
       {/* Scrollable card list — fixed max-height so it scrolls inside popup */}
-      <div style={{ overflowY: 'auto', maxHeight: 380, flex: 1, padding: '6px 10px 0' }}>
+      <div className="results-scroll" style={{ overflowY: 'auto', maxHeight: 380, flex: 1, padding: '6px 10px 0' }}>
         {MOCK_REPOS.map((repo, i) => (
           <RepoCard
             key={repo.id}

@@ -19,8 +19,9 @@ const iconBtnStyle: React.CSSProperties = {
   border: '1px solid transparent',
   borderRadius: 6,
   cursor: 'pointer',
-  color: 'var(--muted)',
+  color: '#8b949e',
   flexShrink: 0,
+  transition: 'all 150ms ease',
 }
 
 export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps) {
@@ -30,21 +31,21 @@ export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps
       alignItems: 'center',
       justifyContent: 'space-between',
       padding: '10px 12px',
-      borderBottom: '1px solid var(--border)',
-      background: 'var(--surface)',
+      borderBottom: '1px solid #21262d',
+      background: '#161b22',
       flexShrink: 0,
     }}>
       {/* Left: logo + brand */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <RadarIcon size={20} />
         <span style={{
-          fontFamily: 'var(--font-unbounded)',
+          fontFamily: 'var(--font-unbounded), Unbounded, cursive',
           fontSize: 11,
           fontWeight: 700,
           letterSpacing: '0.08em',
         }}>
-          <span style={{ color: 'var(--text)' }}>REPO</span>
-          <span style={{ color: 'var(--blue)' }}>RADAR</span>
+          <span style={{ color: '#e6edf3' }}>REPO</span>
+          <span style={{ color: '#58a6ff' }}>RADAR</span>
         </span>
       </div>
 
@@ -55,16 +56,14 @@ export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps
           onClick={onFavoritesClick}
           title="Favoris"
           onMouseEnter={e => {
-            const el = e.currentTarget
-            el.style.background = 'var(--surface-2)'
-            el.style.borderColor = 'var(--border)'
-            el.style.color = 'var(--red)'
+            e.currentTarget.style.background = '#1c2128'
+            e.currentTarget.style.borderColor = '#30363d'
+            e.currentTarget.style.color = '#f78166'
           }}
           onMouseLeave={e => {
-            const el = e.currentTarget
-            el.style.background = 'transparent'
-            el.style.borderColor = 'transparent'
-            el.style.color = 'var(--muted)'
+            e.currentTarget.style.background = 'transparent'
+            e.currentTarget.style.borderColor = 'transparent'
+            e.currentTarget.style.color = '#8b949e'
           }}
         >
           <HeartIcon size={15} />
@@ -72,18 +71,16 @@ export default function Header({ onToggleBanner, onFavoritesClick }: HeaderProps
         <button
           style={iconBtnStyle}
           onClick={onToggleBanner}
-          title="Paramètres"
+          title="Paramètres Groq"
           onMouseEnter={e => {
-            const el = e.currentTarget
-            el.style.background = 'var(--surface-2)'
-            el.style.borderColor = 'var(--border)'
-            el.style.color = 'var(--text)'
+            e.currentTarget.style.background = '#1c2128'
+            e.currentTarget.style.borderColor = '#30363d'
+            e.currentTarget.style.color = '#e6edf3'
           }}
           onMouseLeave={e => {
-            const el = e.currentTarget
-            el.style.background = 'transparent'
-            el.style.borderColor = 'transparent'
-            el.style.color = 'var(--muted)'
+            e.currentTarget.style.background = 'transparent'
+            e.currentTarget.style.borderColor = 'transparent'
+            e.currentTarget.style.color = '#8b949e'
           }}
         >
           <GearIcon size={15} />

@@ -30,6 +30,7 @@ body {
   font-family: var(--font-rajdhani), Rajdhani, sans-serif;
 }
 
+/* Global scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -37,11 +38,30 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 2px;
+  background: #30363d;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
+  background: #484f58;
+}
+
+/* Results area custom scrollbar */
+.results-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #30363d transparent;
+}
+.results-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.results-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.results-scroll::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+.results-scroll::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
 }
 
 a, button, input, select {

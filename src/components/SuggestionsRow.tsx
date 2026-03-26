@@ -10,16 +10,17 @@ export default function SuggestionsRow({ suggestions, onSelect }: SuggestionsRow
 
   return (
     <div style={{
-      padding: '8px 12px 10px',
-      borderTop: '1px solid var(--border-subtle)',
+      padding: '8px 0 12px',
+      borderTop: '1px solid #21262d',
+      marginTop: 4,
     }}>
       <p style={{
         fontFamily: 'var(--font-oswald), Oswald, sans-serif',
         fontSize: 10,
-        color: 'var(--subtle)',
+        color: '#484f58',
         letterSpacing: '0.05em',
         textTransform: 'uppercase',
-        marginBottom: 6,
+        marginBottom: 7,
       }}>
         Recherches connexes
       </p>
@@ -29,10 +30,10 @@ export default function SuggestionsRow({ suggestions, onSelect }: SuggestionsRow
             key={s}
             onClick={() => onSelect(s)}
             style={{
-              background: 'rgba(88, 166, 255, 0.06)',
-              border: '1px solid rgba(88, 166, 255, 0.18)',
+              background: 'rgba(88,166,255,0.06)',
+              border: '1px solid rgba(88,166,255,0.18)',
               borderRadius: 20,
-              color: 'var(--blue)',
+              color: '#58a6ff',
               cursor: 'pointer',
               fontFamily: 'var(--font-oswald), Oswald, sans-serif',
               fontSize: 10,
@@ -40,8 +41,8 @@ export default function SuggestionsRow({ suggestions, onSelect }: SuggestionsRow
               letterSpacing: '0.03em',
               transition: 'background 150ms ease',
             }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(88, 166, 255, 0.13)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(88, 166, 255, 0.06)')}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(88,166,255,0.13)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(88,166,255,0.06)')}
           >
             {s}
           </button>

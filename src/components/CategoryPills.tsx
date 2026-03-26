@@ -23,8 +23,9 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
       overflowX: 'auto',
       scrollbarWidth: 'none',
       flexShrink: 0,
-      borderBottom: '1px solid var(--border-subtle)',
+      borderBottom: '1px solid #21262d',
     }}>
+      <style>{`.cat-pills::-webkit-scrollbar{display:none}`}</style>
       {CATEGORIES.map(cat => {
         const isActive = activeCategory === cat.label
         return (
@@ -36,11 +37,11 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
               fontSize: 10,
               letterSpacing: '0.05em',
               textTransform: 'uppercase',
-              padding: '3px 10px',
+              padding: '3px 9px',
               borderRadius: 20,
-              border: `1px solid ${isActive ? 'var(--blue)' : 'var(--border-subtle)'}`,
-              background: isActive ? 'rgba(88, 166, 255, 0.08)' : 'var(--surface-2)',
-              color: isActive ? 'var(--blue)' : 'var(--muted)',
+              border: `1px solid ${isActive ? '#58a6ff' : '#21262d'}`,
+              background: isActive ? 'rgba(88,166,255,0.08)' : '#1c2128',
+              color: isActive ? '#58a6ff' : '#8b949e',
               cursor: 'pointer',
               whiteSpace: 'nowrap',
               flexShrink: 0,
@@ -48,16 +49,16 @@ export default function CategoryPills({ activeCategory, onSelect }: CategoryPill
             }}
             onMouseEnter={e => {
               if (!isActive) {
-                e.currentTarget.style.borderColor = 'var(--blue)'
-                e.currentTarget.style.color = 'var(--blue)'
-                e.currentTarget.style.background = 'rgba(88, 166, 255, 0.06)'
+                e.currentTarget.style.borderColor = '#58a6ff'
+                e.currentTarget.style.color = '#58a6ff'
+                e.currentTarget.style.background = 'rgba(88,166,255,0.06)'
               }
             }}
             onMouseLeave={e => {
               if (!isActive) {
-                e.currentTarget.style.borderColor = 'var(--border-subtle)'
-                e.currentTarget.style.color = 'var(--muted)'
-                e.currentTarget.style.background = 'var(--surface-2)'
+                e.currentTarget.style.borderColor = '#21262d'
+                e.currentTarget.style.color = '#8b949e'
+                e.currentTarget.style.background = '#1c2128'
               }
             }}
           >
