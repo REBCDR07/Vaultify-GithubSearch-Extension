@@ -1,0 +1,20 @@
+
+> vaultify@0.1.0 dev
+> next dev -p 5000 -H 0.0.0.0
+
+[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.1[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://0.0.0.0:5000
+[32m[1m✓[22m[39m Ready in 359ms
+
+ GET / [32m200[39m in 403ms[2m (next.js: 175ms, application-code: 228ms)[22m
+ GET / [32m200[39m in 28ms[2m (next.js: 5ms, application-code: 23ms)[22m
+ GET / [32m200[39m in 66ms[2m (next.js: 4ms, application-code: 63ms)[22m
+ GET / [32m200[39m in 62ms[2m (next.js: 4ms, application-code: 58ms)[22m
+ GET / [32m200[39m in 78ms[2m (next.js: 4ms, application-code: 74ms)[22m
+[32m[1m✓[22m[39m Compiled in 1119ms
+[32m[1m✓[22m[39m Compiled in 121ms
+[32m[1m✓[22m[39m Compiled in 357ms
+[32m[1m✓[22m[39m Compiled in 327ms
+[32m[1m✓[22m[39m Compiled in 240ms
+[32m[1m✓[22m[39m Compiled in 228ms

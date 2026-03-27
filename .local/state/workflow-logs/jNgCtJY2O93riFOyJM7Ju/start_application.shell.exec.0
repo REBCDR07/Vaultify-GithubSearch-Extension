@@ -1,0 +1,29 @@
+
+> vaultify@0.1.0 dev
+> next dev -p 5000 -H 0.0.0.0
+
+[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.1[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://0.0.0.0:5000
+[32m[1m✓[22m[39m Ready in 357ms
+
+ GET / [32m200[39m in 402ms[2m (next.js: 188ms, application-code: 214ms)[22m
+ GET / [32m200[39m in 58ms[2m (next.js: 4ms, application-code: 54ms)[22m
+[32m[1m✓[22m[39m Compiled in 906ms
+ GET / [32m200[39m in 145ms[2m (next.js: 92ms, application-code: 53ms)[22m
+ GET / [32m200[39m in 29ms[2m (next.js: 4ms, application-code: 26ms)[22m
+ GET / [32m200[39m in 25ms[2m (next.js: 3ms, application-code: 22ms)[22m
+[32m[1m✓[22m[39m Compiled in 501ms
+ GET / [32m200[39m in 111ms[2m (next.js: 74ms, application-code: 37ms)[22m
+ GET / [32m200[39m in 22ms[2m (next.js: 3ms, application-code: 19ms)[22m
+ GET / [32m200[39m in 24ms[2m (next.js: 2ms, application-code: 22ms)[22m
+[32m[1m✓[22m[39m Compiled in 764ms
+ GET / [32m200[39m in 140ms[2m (next.js: 94ms, application-code: 46ms)[22m
+ GET / [32m200[39m in 35ms[2m (next.js: 4ms, application-code: 31ms)[22m
+[32m[1m✓[22m[39m Compiled in 192ms
+ GET / [32m200[39m in 109ms[2m (next.js: 74ms, application-code: 35ms)[22m
+ GET / [32m200[39m in 19ms[2m (next.js: 3ms, application-code: 17ms)[22m
+[32m[1m✓[22m[39m Compiled in 185ms
+ GET / [32m200[39m in 199ms[2m (next.js: 153ms, application-code: 46ms)[22m
+ GET / [32m200[39m in 24ms[2m (next.js: 3ms, application-code: 21ms)[22m
+ GET / [32m200[39m in 22ms[2m (next.js: 2ms, application-code: 20ms)[22m

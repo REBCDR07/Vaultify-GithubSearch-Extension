@@ -1,0 +1,23 @@
+
+> vaultify@0.1.0 dev
+> next dev -p 5000 -H 0.0.0.0
+
+[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.1[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://0.0.0.0:5000
+[32m[1m✓[22m[39m Ready in 359ms
+
+ GET / [32m200[39m in 378ms[2m (next.js: 166ms, application-code: 212ms)[22m
+[36m[browser][39m [31mUncaught Error: Internal Next.js error: Router action dispatched before initialization.[39m
+[36m[browser][39m [31mUncaught Error: Internal Next.js error: Router action dispatched before initialization.[39m
+[36m[browser][39m [31mUncaught Error: Internal Next.js error: Router action dispatched before initialization.[39m
+[36m[browser][39m [31mUncaught Error: Internal Next.js error: Router action dispatched before initialization.[39m
+ GET / [32m200[39m in 49ms[2m (next.js: 6ms, application-code: 43ms)[22m
+ GET / [32m200[39m in 40ms[2m (next.js: 3ms, application-code: 38ms)[22m
+ GET / [32m200[39m in 45ms[2m (next.js: 2ms, application-code: 42ms)[22m
+ GET / [32m200[39m in 49ms[2m (next.js: 4ms, application-code: 46ms)[22m
+[32m[1m✓[22m[39m Compiled in 227ms
+[32m[1m✓[22m[39m Compiled in 120ms
+[32m[1m✓[22m[39m Compiled in 103ms
+[32m[1m✓[22m[39m Compiled in 101ms
+[32m[1m✓[22m[39m Compiled in 97ms

@@ -1,0 +1,28 @@
+
+> vaultify@0.1.0 dev
+> next dev -p 5000 -H 0.0.0.0
+
+[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.1[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://0.0.0.0:5000
+[32m[1m✓[22m[39m Ready in 330ms
+
+ GET / [32m200[39m in 337ms[2m (next.js: 157ms, application-code: 181ms)[22m
+ GET / [32m200[39m in 48ms[2m (next.js: 4ms, application-code: 44ms)[22m
+ GET / [32m200[39m in 37ms[2m (next.js: 3ms, application-code: 34ms)[22m
+ GET / [32m200[39m in 55ms[2m (next.js: 5ms, application-code: 50ms)[22m
+ GET / [32m200[39m in 49ms[2m (next.js: 3ms, application-code: 46ms)[22m
+[36m[browser][39m [31mUncaught NotFoundError: Failed to execute 'insertBefore' on 'Node': The node before which the new node is to be inserted is not a child of this node.[39m
+[31m    at span (<anonymous>)
+    at <unknown> (src/components/ResultsArea.tsx:112:13)
+    at Array.map (<anonymous>)
+    at ResultsArea (src/components/ResultsArea.tsx:93:16)
+    at PopupShell (src/components/PopupShell.tsx:105:7)
+    at Home (src/app/page.tsx:4:10)[39m
+  [90m110 |[0m               transition: [32m'background 300ms ease'[0m,
+  [90m111 |[0m             }} />
+[31m[1m>[0m [90m112 |[0m             <span style={{
+  [90m    |[0m             [31m[1m^[0m
+  [90m113 |[0m               fontFamily: [32m'var(--font-oswald), Oswald, sans-serif'[0m,
+  [90m114 |[0m               fontSize: [35m12[0m,
+  [90m115 |[0m               letterSpacing: [32m'0.02em'[0m,
